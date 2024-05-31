@@ -33,7 +33,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        @isset(Auth::user()->role)
+                            @if (Auth::user()->role == 'admin')
+                                <a href="{{ route('kategori.index') }}" class="nav-item nav-link"> Kategori </a>
+                            @endif
+                        @endisset
                     </ul>
 
                     <!-- Right Side Of Navbar -->

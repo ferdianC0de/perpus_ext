@@ -8,6 +8,68 @@ use Illuminate\Http\Request;
 
 class KategoriController extends Controller
 {
+    //API
+
+    public static function getAllDataKategori(){
+        $data = Kategori::all();
+        return response([
+            'message' => "Succes Get Data",
+            'data' => $data
+        ], 200);
+    }
+
+    public static function getDataKategoriByName($name = ""){
+        // return $name;
+        $data = Kategori::where('nama', 'LIKE', '%'.$name.'%')->get();
+        return response([
+            'message' => "Succes Get Data",
+            'data' => $data
+        ], 200);
+    }
+    public static function storeKategori(Request $request){
+
+        $kategori = new Kategori();
+        $kategori->nama = $request->nama;
+        $kategori->deskripsi = $request->deskripsi;
+        $kategori->save();
+
+        return response([
+            'message' => "Succes Store Data",
+            'data' => $kategori
+        ], 201);
+    }
+
+    public static function updateKategori(Request $request, $id){
+
+        $kategori = Kategori::find($id);
+        $kategori->nama = $request->nama;
+        $kategori->deskripsi = $request->deskripsi;
+        $kategori->update();
+
+        return response([
+            'message' => "Succes Update Data",
+            'data' => $kategori
+        ], 201);
+    }
+    public static function deleteKategori(Request $request){
+
+        $kategori = Kategori::find($request->id);
+        // $kategori->nama = $request->nama;
+        // $kategori->deskripsi = $request->deskripsi;
+        $kategori->delete();
+
+        return response([
+            'message' => "Succes Delete Data",
+            'data' => $kategori
+        ], 201);
+    }
+
+
+
+
+
+
+
     /**
      * Display a listing of the resource.
      */

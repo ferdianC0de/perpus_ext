@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\KategoriController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,4 +23,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('kategori', KategoriController::class);
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('kategori', KategoriController::class);
+
+});
